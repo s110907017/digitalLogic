@@ -64,7 +64,7 @@ byte A[8][8] = {
   {0,1,1,1,1,1,1,0}};
 
 byte previousState=1, presentState=1, patternNumber=0;
-byte incomingByte;
+byte incomingByte, pre;
 
 void setup()
 {
@@ -100,11 +100,17 @@ void loop()
   //showPattern(circle);
   if (Serial.available() > 0){
     incomingByte = Serial.read();
+    if(incomingByte != 'C' && incomingByte != 'H'&& incomingByte != 'A'){
+    incomingByte=pre;
+    }
+  {
+    pre = incomingByte;
   }
-  if(incomingByte == 'c')
+  }
+  if(incomingByte == 'C')
     showPattern(circle);
-  else if(incomingByte == 'H')
+  if(incomingByte == 'H')
     showPattern(H);
-  else if(incomingByte == 'A')
+  if(incomingByte == 'A')
     showPattern(A);
 }
